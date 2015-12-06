@@ -1,6 +1,6 @@
 <?php
 	error_reporting(E_ALL);
-
+	session_start();
 	define('WEB', "http://localhost/photoAlbum/");
 	define('UPLOAD', WEB.'upload/');
 
@@ -47,6 +47,18 @@
 		case preg_match('/^photos\/upload\/?$/', $queryString) :
 		$controller = 'photos';
 		$action = 'upload';
+		$params = [];
+		break;
+
+		case preg_match('/^register\/?$/', $queryString) :
+		$controller = 'users';
+		$action = 'register';
+		$params = [];
+		break; 
+
+		case preg_match('/^login\/?$/', $queryString) :
+		$controller = 'users';
+		$action = 'login';
 		$params = [];
 		break;
 
