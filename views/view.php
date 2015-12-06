@@ -4,7 +4,7 @@
 	<title></title>
 </head>
 <body>
-	<form method = "POST" enctype = "multipart/form-data" action = "upload.php">
+	<form method = "POST" enctype = "multipart/form-data" action = "<?php echo WEB.'photos/upload'; ?>">
 		<input type = "text" name = "name">
 		<br>
 		<input type = "file" name = "file">
@@ -19,7 +19,7 @@
 			foreach($photo as $value)
 			{
 				echo "{$value['name']} <br>" ;
-				echo "<img src = 'upload/{$value['filename']}' width = '600'> ";
+				echo "<img src = '".UPLOAD."{$value['filename']}' width = '600'> ";
 				echo "<br>";
 			}
 		}
