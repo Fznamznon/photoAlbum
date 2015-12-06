@@ -1,6 +1,12 @@
 <?php
 
-	$db = new mysqli("localhost", "root", "pass@word1", "photos");
-	$db->query("set names UTF-8");
+	function get_db_connection()
+	{
+		static 	$db;
+		$db = new mysqli("localhost", "root", "pass@word1", "photos");
+		
+		return $db;
+	}
+	
 
 ?>

@@ -10,6 +10,10 @@
 	define('CONTROLLERS', ROOT.'controllers/');
 	define('VIEWS', ROOT.'views/');
 
+	require(APP."db.php");
+			
+	get_db_connection()->query("set names UTF-8");
+
 	$queryString = $_SERVER['REQUEST_URI'];
 
 	$qmPos = strpos($queryString, '?');
@@ -63,8 +67,21 @@
 				call_user_func_array($functionName, $params);
 
 			}
+			else
+			{
+				echo "error";
+			}
 
 		}
+		else
+		{
+			echo "404";
+		}
+	}
+	else
+	{
+		echo "cannot open file";
+
 	}
 
 		
