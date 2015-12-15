@@ -2,7 +2,7 @@
 	error_reporting(E_ALL);
 	session_start();
 	define('WEB', "http://localhost/photoAlbum/");
-	define('UPLOAD', WEB.'upload/');
+	define('UPLOAD', WEB.'files/');
 
 	define('ROOT', realpath(dirname(__FILE__)).'/');
 	define('APP', ROOT.'app/');
@@ -62,6 +62,12 @@
 		$params = [];
 		break;
 
+		case preg_match('/^albums\/add\/?$/', $queryString) :
+		$controller = 'albums';
+		$action = 'add';
+		$params = [];
+		break;
+		
 	}
 
 	$filename = CONTROLLERS.$controller.'.php';

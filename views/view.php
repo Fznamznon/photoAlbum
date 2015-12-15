@@ -5,14 +5,7 @@
 </head>
 <body>
 <h3>Привет, <?php echo $user['name']; ?> !</h3>
-	<form method = "POST" enctype = "multipart/form-data" action = "<?php echo WEB.'photos/upload'; ?>">
-		<input type = "text" name = "name">
-		<br>
-		<input type = "file" name = "file">
-		<br>
-		<input type = "submit">
-	</form>
-	<br>
+	
 	<?php
 
 		if (count($photo) != 0)

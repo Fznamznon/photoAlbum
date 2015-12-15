@@ -42,13 +42,14 @@
 
 	}
 
-	function photos_insert($name, $description, $filename)
+	function photos_insert($name, $description, $filename, $user, $album)
 	{
 		$db = get_db_connection();
 
-		
+		if ($album == -1)
+			$album = 'NULL';
 
-		$db->query("INSERT INTO photo VALUES (NULL, '$name', '$description', '$filename')");
+		$db->query("INSERT INTO photo VALUES (NULL, '$name', '$description', '$filename', '$user', '$album')");
 
 	}
 

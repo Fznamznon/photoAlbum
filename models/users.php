@@ -1,5 +1,23 @@
 <?php
 	
+	function users_getCurrentUser()
+	{
+		$db = get_db_connection();
+		if (isset($_SESSION['user']))
+		{
+			$user = users_getById($_SESSION['user']);
+		}
+		else
+		{
+			$user = [
+				'name'=>'Гость',
+				'id'=> -1,
+			];
+		}
+		return $user;
+	}
+
+
 	function users_insert($login, $password, $name)
 	{
 	

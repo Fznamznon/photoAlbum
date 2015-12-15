@@ -3,9 +3,12 @@
 	function photos_show($id)
 	{
 		require(MODELS."photo.php");
-
+		require(MODELS."users.php");
+		require(MODELS."albums.php");
 		$photo = photos_getById($id);
-		
+		$photo['user'] = users_getById($photo['user_id']);
+		$photo['album'] = albums_getById($photo['album_id']);
+		if ($photo['album'] == false) $photo['album'] = ['id' => -1, 'name' => 'Без альбома'];
 		require(VIEWS."photo.php");
 
 	}
@@ -14,27 +17,39 @@
 	{
 
 		require(MODELS."photo.php");
-
-		if($_SERVER['REQUEST_METHOD'] == "POST")
+		require(MODELS."users.php");
+		if (isset($_SESSION['user']))
 		{
-			
-
-			if ($_FILES['file']['error'] == 0)
+			if($_SERVER['REQUEST_METHOD'] == "POST")
 			{
+				
 
-				$name = $_POST['name'];
-				$filename = generate_filename($_FILES['file']['name']);
-				if (move_uploaded_file($_FILES['file']['tmp_name'], ROOT."upload/{$filename}"))
+				if ($_FILES['file']['error'] == 0)
 				{
-					photos_insert($name, '', $filename);
-					header('location: '.WEB);
-					exit();
-				}
 
+						$name = $_POST['name'];
+						$user = $_SESSION['user'];
+						$album = $_POST['album'];
+						$filename = generate_filename($_FILES['file']['name']);
+						if (move_uploaded_file($_FILES['file']['tmp_name'], ROOT."files/{$filename}"))
+						{
+							photos_insert($name, '', $filename, $user, $album);
+							header('location: '.WEB);
+							exit();
+						}
+				}
+			}
+			else
+			{
+				$user = users_getCurrentUser();
+				require(MODELS."albums.php");
+				$albums = albums_getByUser($user);
+				require(VIEWS."upload.php");
 			}
 		}
-
-		echo "Fail";
+		else
+			header('location:'.WEB.'/login');
+		
 	}
 
 
