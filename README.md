@@ -1,11 +1,11 @@
 # photoAlbum
 
-Учебный проект по web 
+Small project for study web technologies  
 
-### Что можно сделать?
-* Несколько альбомов
-* Добавить пользователей
-* Добавить теги для фотографий
-* Подумать над дизайном
+### Task list
+* Show all users
+* More links
+* Functionality to delete photos
 
-> Мое знание английского оставляет желать лучшего :(
+
+
