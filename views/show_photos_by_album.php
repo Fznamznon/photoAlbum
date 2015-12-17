@@ -1,8 +1,7 @@
 <?php include VIEWS.'header.php' ?>
-
+	
 <div class="container">
-<h3>Hello, <?php echo $cur_user['name']; ?>! All photos:</h3>
-
+<h3>Album <?php echo $album['name']; ?> : </h3>
 	
 	<div class="row">
 	<?php	if (count($photo) != 0) : foreach($photo as $value) : ?>

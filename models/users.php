@@ -80,6 +80,10 @@
 			$user = $tmp->fetch_assoc();	
 
 		}
+		else
+		{	
+			$user = false;
+		}
 
 		return $user;
 

@@ -3,6 +3,7 @@
 	session_start();
 	define('WEB', "http://localhost/photoAlbum/");
 	define('UPLOAD', WEB.'files/');
+	define('INC', WEB.'inc/');
 
 	define('ROOT', realpath(dirname(__FILE__)).'/');
 	define('APP', ROOT.'app/');
@@ -66,6 +67,24 @@
 		$controller = 'albums';
 		$action = 'add';
 		$params = [];
+		break;
+
+		case preg_match('/^users\/([\d]+)\/albums\/?$/', $queryString, $matches) :
+		$controller = 'albums';
+		$action = 'showByUser';
+		$params = [$matches[1]];
+		break;
+
+		case preg_match('/^albums\/([\d]+)\/?$/', $queryString, $matches):
+		$controller = 'albums';
+		$action = 'showById';
+		$params = [$matches[1]];
+		break;
+
+		case preg_match('/^users\/([\d]+)\/photos\/?$/', $queryString, $matches) :
+		$controller = 'photos';
+		$action = 'showByUser';
+		$params = [$matches[1]];
 		break;
 		
 	}

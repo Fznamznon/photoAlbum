@@ -1,4 +1,4 @@
-<html>
+<?php include VIEWS.'header.php' ?>
 
 <form method="POST" action="<?php echo WEB.'register'; ?>">
 Имя: <input type = "text" name = "name">
