@@ -7,7 +7,8 @@
 	<?php _header();?>
 	<h4>
 	Альбом: <?php echo $album['name']; ?> <br>
-	Владелец: <?php echo $album['user']['name']." (".$album['user']['login'].")"; ?>
+	Владелец: <?php echo $album['user']['name']." (".$album['user']['login'].")"; ?> <br>
+	<?php echo $album['numberofphotos']; ?> фото
 	</h4>
 	<?php if ($album['user_id'] == $user['id']) echo "<a href='".WEB."albums/edit/".$album['id']."'> Редактировать альбом</a> <br><br>";
 
