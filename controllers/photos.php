@@ -1,6 +1,6 @@
 <?php
 
-	function photos_show($id)
+	function photos_show($photo_id)
 	{
 		require(MODELS."photo.php");
 		require(MODELS."users.php");
@@ -8,7 +8,7 @@
 
 		$cur_user = users_getCurrentUser();
 
-		$photo = photos_getById($id);
+		$photo = photos_getById($photo_id);
 		$photo['user'] = users_getById($photo['user_id']);
 		$photo['album'] = albums_getById($photo['album_id']);
 

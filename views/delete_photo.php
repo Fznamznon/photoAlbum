@@ -9,7 +9,7 @@
 
 				<h4>Вы уверены, что хотите удалить фото <strong><?php echo $photo['name']; ?></strong>?</h4>
 
-				<img src="<?php echo UPLOAD.$photo['filename']; ?>" class='img-responsive img-thumbnail' />
+				<!-- <img src="<?php echo UPLOAD.$photo['filename']; ?>" class='img-responsive img-thumbnail' /> -->
 
 				<div class="form-group">
 					<div class="col-sm-10 col-sm-offset-2">

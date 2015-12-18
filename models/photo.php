@@ -6,7 +6,7 @@
 
 		if ($public_only)
 		{
-			$sql = "SELECT * FROM photo LEFT JOIN albums ON albums.id = photo.album_id WHERE albums.private != 1";
+			$sql = "SELECT photo.id, photo.name, photo.description, photo.filename, photo.album_id FROM photo LEFT JOIN albums ON albums.id = photo.album_id WHERE albums.private != 1";
 		}
 		else
 		{
@@ -49,11 +49,11 @@
 		return $photo;
 	}
 
-	function photos_getById($id)
+	function photos_getById($photo_id)
 	{
 		$db = get_db_connection();
 
-		$tmp = $db->query("SELECT * from photo WHERE id = $id");
+		$tmp = $db->query("SELECT * FROM photo WHERE id = $photo_id") or die($db->error);
 
 		if ($tmp->num_rows != 0)
 		{

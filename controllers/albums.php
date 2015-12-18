@@ -74,9 +74,9 @@
 
 		$album = albums_getById($album_id);
 
-		if ($album['private'] && $cur_user['id'] != $album['user_id'])
+		if ($cur_user['id'] < 0)
 		{
-			header('Location: '.WEB.'users/'.$album['user_id'].'/albums');
+			header('Location: '.WEB.'albums');
 			exit;
 		}
 		else
@@ -149,7 +149,7 @@
 
 		if ($cur_user['id'] != $album['user_id'])
 		{
-			header('Location: '.WEB.'users/'.$cur_user['id']);
+			header('Location: '.WEB.'users/'.$cur_user['id'].'/albums');
 			exit;
 		}
 		

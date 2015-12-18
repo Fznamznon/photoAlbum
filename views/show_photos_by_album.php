@@ -1,7 +1,7 @@
 <?php include VIEWS.'header.php' ?>
 	
 <div class="container">
-	<h3 class='page-header'>Album: <?php echo $album['name']; ?> <small><span class='glyphicon glyphicon-lock'></span></small> </h3>
+	<h3 class='page-header'>Album: <?php echo $album['name']; ?> <?php if ($album['private']): ?><small><span class='glyphicon glyphicon-lock'></span></small><?php endif; ?></h3>
 	
 	<div class="row">
 		<div class='col-md-12'>
