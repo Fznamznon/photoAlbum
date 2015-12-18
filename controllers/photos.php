@@ -48,7 +48,7 @@
 			}
 		}
 		else
-			header('location:'.WEB.'/login');
+			header('location:'.WEB.'login');
 		
 	}
 

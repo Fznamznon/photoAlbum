@@ -48,9 +48,7 @@
 
 		if ($album == -1)
 			$album = 'NULL';
-
-		$db->query("INSERT INTO photo VALUES (NULL, '$name', '$description', '$filename', '$user', '$album')");
-
+		$db->query("INSERT INTO photo VALUES (NULL, '$name', '$description', '$filename', '$user', ".$album.")");
 	}
 
 	function generate_filename($name)
