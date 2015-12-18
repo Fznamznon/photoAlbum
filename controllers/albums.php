@@ -90,80 +90,94 @@
 		require(MODELS."photo.php");
 		require(MODELS."users.php");
 		require(MODELS."albums.php");
-		$user = users_getCurrentUser();
-		$album = albums_getbyID($album_id);
-		if ($album !== NULL) {
-			if ($album['user_id'] == $user['id']) {
-				if ($_SERVER['REQUEST_METHOD'] == 'POST')
-				{
-					$photos = photos_getbyAlbum($album_id);
-					foreach ($photos as $ph) {
-						unlink(ROOT."files/".$ph['filename']);
-					}
-					albums_DBdelete($album_id);
-					header('location: '.WEB.'albums');
-				}
-				else
-				{
-					require(VIEWS."delete_album.php");
-				}
+
+		$cur_user = users_getCurrentUser();
+		$album = albums_getbyId($album_id);
+
+		if ($cur_user['id'] != $album['user_id'])
+		{
+			header('Location: '.WEB.'users/'.$cur_user['id'].'/albums');
+			exit;
+		}
+
+		$albums = albums_getByUserId($cur_user['id']);
+
+		if (count($albums) == 1)
+		{
+			header('Location: '.WEB.'users/'.$cur_user['id'].'/albums');
+			exit;
+		}
+
+		if ($_SERVER['REQUEST_METHOD'] == 'POST')
+		{
+			$album_id = $_POST['album_id'];
+			$photos_action = $_POST['photos_action'];
+			$destination_album_id = $_POST['destination_album_id'];
+
+			if ($photos_action == 'delete')
+			{
+				albums_deleteByIdWithPhotos($album_id);
+
+				header('Location: '.WEB."users/{$cur_user['id']}/albums");
+				exit;
 			}
-			else {
-				header('location: '.WEB.'albums');
+			else
+			{
+				albums_movePhotos($album_id, $destination_album_id);
+				albums_deleteById($album_id);
+
+				header('Location: '.WEB."users/{$cur_user['id']}/albums");
+				exit;
 			}
 		}
-		else {
-			header('location: '.WEB.'albums');
+		else
+		{
+			require(VIEWS.'delete_album.php');
 		}
 	}
 		
-	function albums_edit($album_id) {
+	function albums_edit($album_id) 
+	{
 		require(MODELS."photo.php");
 		require(MODELS."users.php");
 		require(MODELS."albums.php");
-		require(VIEWS."header.php");
-		$user = users_getCurrentUser();
-		$album = albums_getbyID($album_id);
-		$albums = albums_getByUser($user);
-		if ($album !== NULL) {
-			$album['user'] = users_getbyID($album['user_id']);
-			if ($album['user_id'] == $user['id']) {
-				if ($_SERVER['REQUEST_METHOD'] == 'POST')
+
+		$cur_user = users_getCurrentUser();
+
+		$album = albums_getbyId($album_id);
+		$album['user'] = users_getbyId($album['user_id']);
+
+		if ($cur_user['id'] != $album['user_id'])
+		{
+			header('Location: '.WEB.'users/'.$cur_user['id']);
+			exit;
+		}
+		
+		$albums = albums_getByUserId($cur_user['id']);
+		if ($album !== NULL) 
+		{
+			if ($_SERVER['REQUEST_METHOD'] == 'POST')
+			{
+				$name = $_POST['name'];
+				$description = $_POST['description'];
+				$private = 0;
+
+				if (isset($_POST['privacy'])) 
 				{
-					$name = $_POST['name'];
-					$description = $_POST['description'];
-					$private = 0;
-					if (isset($_POST['photos_to_delete'])) {
-						$photos_to_delete = $_POST['photos_to_delete'];
-					}
-					else $photos_to_delete = [];
-					$edited_photos = $_POST['edited_photos'];
-					$edited_photos_desc = $_POST['edited_photos_desc'];
-					$to_album = $_POST['to_album'];
-					if (isset($_POST['privacy'])) $private = 1;
-					albums_DBedit($album_id, $name, $description, $private);
-					foreach ($edited_photos as $key => $value) {
-						photos_edit($key, $value, $edited_photos_desc[$key], $to_album[$key]);
-					}
-					if (count($photos_to_delete)) {
-						foreach($photos_to_delete as $photo_id) {
-							$ph = photos_getById($photo_id);
-							unlink(ROOT."files/".$ph['filename']);
-							photos_deletebyID($photo_id);
-						}
-					}
-					header('location: '.WEB.'albums/'.$album['id']);
+					$private = 1;
 				}
-				else {
-					$photo = photos_getbyAlbum($album_id);
-					require(VIEWS."edit_album.php");
-				}
+
+				albums_DBedit($album_id, $name, $description, $private);
+				
+				header('Location: '.WEB.'albums/'.$album_id.'/edit');
 			}
-			else {
-				header('location: '.WEB.'albums');
+			else 
+			{
+				require(VIEWS."edit_album.php");
 			}
 		}
-		else {
+		else 
+		{
 			header('location: '.WEB.'albums');
 		}
 	}

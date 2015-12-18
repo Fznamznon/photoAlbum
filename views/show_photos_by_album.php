@@ -8,6 +8,12 @@
 			<p>
 				<strong>Description: </strong> <?php echo $album['description']; ?>
 			</p>
+			<?php if ($cur_user['id'] == $album['user_id']): ?>
+				<p>
+					<a href="<?php echo WEB; ?>albums/<?php echo $album['id']; ?>/edit">Edit album</a> | 
+					<a href="<?php echo WEB; ?>albums/<?php echo $album['id']; ?>/delete">Delete album</a>
+				</p>
+			<?php endif; ?>
 		</div>
 		<?php if (count($photos) != 0) : foreach($photos as $value) : ?>
 			<div class="col-sm-6 photo">
