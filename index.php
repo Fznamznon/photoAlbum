@@ -3,6 +3,7 @@
 	session_start();
 	define('WEB', "http://localhost/photoAlbum/");
 	define('UPLOAD', WEB.'files/');
+	define('INC', WEB.'inc/');
 
 	define('ROOT', realpath(dirname(__FILE__)).'/');
 	define('APP', ROOT.'app/');

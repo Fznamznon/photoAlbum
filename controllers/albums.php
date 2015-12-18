@@ -39,6 +39,7 @@
 			}
 			else
 			{
+				require(VIEWS.'header.php');
 				require(VIEWS.'add_album.php');
 			}
 
@@ -89,6 +90,7 @@
 				}
 				else
 				{
+					require(VIEWS.'header.php');
 					require(VIEWS."delete_album.php");
 				}
 			}
@@ -105,7 +107,6 @@
 		require(MODELS."photo.php");
 		require(MODELS."users.php");
 		require(MODELS."albums.php");
-		require(VIEWS."header.php");
 		$user = users_getCurrentUser();
 		$album = albums_getbyID($album_id);
 		$albums = albums_getByUser($user);
@@ -140,6 +141,7 @@
 				}
 				else {
 					$photo = photos_getbyAlbum($album_id);
+					require(VIEWS.'header.php');
 					require(VIEWS."edit_album.php");
 				}
 			}

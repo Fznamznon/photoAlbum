@@ -9,15 +9,16 @@
 		$photo['user'] = users_getById($photo['user_id']);
 		$photo['album'] = albums_getById($photo['album_id']);
 		if ($photo['album'] == false) $photo['album'] = ['id' => -1, 'name' => 'Без альбома'];
+		require(VIEWS.'header.php');
 		require(VIEWS."photo.php");
 
 	}
 
 	function photos_upload()
 	{
-
 		require(MODELS."photo.php");
 		require(MODELS."users.php");
+		$errorString = null;
 		if (isset($_SESSION['user']))
 		{
 			if($_SERVER['REQUEST_METHOD'] == "POST")
@@ -44,15 +45,17 @@
 					$user = users_getCurrentUser();
 					require(MODELS."albums.php");
 					$albums = albums_getByUser($user);
+					require(VIEWS.'header.php');
 					require(VIEWS."upload.php");
 				}
 			}
 			else
 			{
-				$errorString = "";
+				$errorString = null;
 				$user = users_getCurrentUser();
 				require(MODELS."albums.php");
 				$albums = albums_getByUser($user);
+				require(VIEWS.'header.php');
 				require(VIEWS."upload.php");
 			}
 		}
