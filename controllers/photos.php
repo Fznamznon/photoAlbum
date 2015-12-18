@@ -23,6 +23,78 @@
 		}
 	}
 
+	function photos_edit($photo_id)
+	{
+		require(MODELS."photo.php");
+		require(MODELS."users.php");
+		require(MODELS."albums.php");
+
+		$cur_user = users_getCurrentUser();
+
+		$photo = photos_getById($photo_id);
+
+		if ($cur_user['id'] == $photo['user_id'])
+		{
+			$albums = albums_getByUserId($cur_user['id']);
+
+			if ($_SERVER['REQUEST_METHOD'] == 'POST')
+			{
+				$photo_id = $_POST['photo_id'];
+				$name = $_POST['name'];
+				$description = $_POST['description'];
+				$move = (isset($_POST['move']) && !empty($_POST['move']));
+				$destination_album_id = ($move) ? $_POST['destination_album_id'] : $photo['album_id'];
+
+				photos_update($photo_id, $name, $description, $destination_album_id);
+
+				Header('Location: '.WEB.'photos/'.$photo_id);
+				exit;
+			}
+			else
+			{
+				require(VIEWS.'edit_photo.php');
+			}
+		}
+		else
+		{
+			Header('Location: '.WEB.'users/'.$cur_user['id'].'/photos');
+			exit;
+		}
+	}
+
+	function photos_delete($photo_id)
+	{
+		require(MODELS."photo.php");
+		require(MODELS."users.php");
+		require(MODELS."albums.php");
+
+		$cur_user = users_getCurrentUser();
+
+		$photo = photos_getById($photo_id);
+
+		if ($cur_user['id'] == $photo['user_id'])
+		{
+			if ($_SERVER['REQUEST_METHOD'] == 'POST')
+			{
+				$photo_id = $_POST['photo_id'];
+
+				photos_deleteById($photo_id);
+
+				Header('Location: '.WEB.'users/'.$cur_user['id'].'/photos');
+				exit;
+			}
+			else
+			{
+				require(VIEWS.'delete_photo.php');
+			}
+		}
+		else
+		{
+			Header('Location: '.WEB.'users/'.$cur_user['id'].'/photos');
+			exit;
+		}
+	}
+
 	function photos_upload()
 	{
 		require(MODELS."photo.php");

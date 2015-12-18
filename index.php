@@ -49,6 +49,18 @@
 		$params = array($matches[1]);
 		break;
 
+		case preg_match('/^photos\/([\d]+)\/edit\/?$/', $queryString, $matches) :
+		$controller = 'photos';
+		$action = 'edit';
+		$params = array($matches[1]);
+		break;
+
+		case preg_match('/^photos\/([\d]+)\/delete\/?$/', $queryString, $matches) :
+		$controller = 'photos';
+		$action = 'delete';
+		$params = array($matches[1]);
+		break;
+
 		case preg_match('/^photos\/upload\/?$/', $queryString) :
 		$controller = 'photos';
 		$action = 'upload';

@@ -3,11 +3,17 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<h4>Name: <?php echo $photo['name']; ?></h4>
-				<img src="<?php echo UPLOAD.$photo['filename']; ?>" class="img-thumbnail img-responsive" />
-				<br /><br />
 				<p>
 					<strong>Description: </strong><?php echo $photo['description']; ?>
 				</p>
+				<?php if ($cur_user['id'] == $photo['user_id']): ?>
+					<p>
+						<a href="<?php echo WEB; ?>photos/<?php echo $photo['id']; ?>/edit">Edit photo</a> | 
+						<a href="<?php echo WEB; ?>photos/<?php echo $photo['id']; ?>/delete">Delete photo</a>
+					</p>
+				<?php endif; ?>
+				<img src="<?php echo UPLOAD.$photo['filename']; ?>" class="img-thumbnail img-responsive" />
+				<br /><br />
 				<p>
 					<strong>
 						User: 
