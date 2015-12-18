@@ -3,7 +3,7 @@
 	<h3 class='page-header'>Authorization</h3>
 	<div class="row">
 		<div class="col-sm-12">
-			<form method="POST" action="<?php echo WEB; ?>login" class="form-horizontal">
+			<form method="POST" action="<?php echo WEB; ?>users/login" class="form-horizontal">
 				<?php if (!is_null($errorString)): ?>
 					<div class="alert alert-danger">
 						<strong>Ошибка! </strong> <?php echo $errorString; ?>

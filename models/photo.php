@@ -1,10 +1,19 @@
 <?php
 
-	function photos_getAll()
+	function photos_getAll($public_only)
 	{
 		$db = get_db_connection();
 
-		$tmp = $db->query("SELECT * from photo");
+		if ($public_only)
+		{
+			$sql = "SELECT * FROM photo LEFT JOIN albums ON albums.id = photo.album_id WHERE albums.private != 1";
+		}
+		else
+		{
+			$sql = "SELECT * FROM photo";
+		}
+
+		$tmp = $db->query($sql) or die($db->error);
 
 		if ($tmp->num_rows != 0)
 		{
@@ -125,11 +134,11 @@
 		return $filename;
 	}
 
-	function photos_getByUserId($user_id, $private_only)
+	function photos_getByUserId($user_id, $public_only)
 	{
 		$db = get_db_connection();
 
-		if ($private_only)
+		if ($public_only)
 		{
 			$sql = "SELECT
 					p.id,

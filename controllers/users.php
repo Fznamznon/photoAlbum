@@ -26,7 +26,7 @@
 				{
 					albums_insert('Без названия', 'Временный альбом для неразобранных фоток', $user_id, 1);
 
-					header("location: ".WEB."login");
+					header("location: ".WEB."users/login");
 				}
 			}
 			else

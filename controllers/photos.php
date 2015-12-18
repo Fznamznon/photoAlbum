@@ -85,9 +85,9 @@
 
 		$user = users_getById($user_id);
 
-		$private_only = ($cur_user['id'] != $user_id);
+		$public_only = ($cur_user['id'] != $user_id);
 
-		$photos = photos_getByUserId($user_id, $private_only);
+		$photos = photos_getByUserId($user_id, $public_only);
 
 		require(VIEWS.'show_photos_by_user.php');
 	}

@@ -1,6 +1,6 @@
 <?php include VIEWS.'header.php' ?>
 <div class="container">
-	<h3> <?php echo $cur_user['name']; ?>'s albums:</h3> 
+	<h3 class='page-header'> <?php echo $cur_user['name']; ?>'s albums:</h3> 
 	<ul>
 	<?php if (count($albums) != 0) : foreach ($albums as $album): ?> 
 		<li><a href="<?php echo WEB; ?>albums/<?php echo $album['id']; ?>"> <?php echo $album['name']; ?> </a></li>

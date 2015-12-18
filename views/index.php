@@ -1,7 +1,7 @@
 <?php include VIEWS.'header.php' ?>
 
 <div class="container">
-	<h3>Hello, <?php echo $cur_user['name']; ?>! All photos:</h3>
+	<h3 class='page-header'>Hello, <?php echo $cur_user['name']; ?>! All photos:</h3>
 
 	<div class="row">
 		<?php if (count($photo) != 0): ?>
@@ -15,7 +15,7 @@
 			<?php endforeach; ?>
 		<?php else: ?>
 			<div class="col-md-12">
-				<strong>No photos!</strong>
+				<strong>No <?php if ($public_only) echo "public"; ?> photos!</strong>
 			</div>
 		<?php endif; ?>
 	</div>

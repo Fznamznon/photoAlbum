@@ -1,23 +1,26 @@
 <?php
-	function albums_index() {
+
+	function albums_index() 
+	{
 		require(MODELS.'users.php');
 		require(MODELS.'albums.php');
-		$user = users_getCurrentUser();
-		if ($user['id'] != -1)
-		{
-			$albums = albums_getbyUser($user);
-			require(VIEWS."header.php");
-			require(VIEWS.'albums.php');
-		}
-		else
-			header('location:'.WEB);
+
+		$cur_user = users_getCurrentUser();
+
+		$public_only = ($cur_user['id'] < 0);
+
+		$albums = albums_getAll($public_only);
+
+		require(VIEWS.'albums.php');
 	}	
 	
 	function albums_add()
 	{
 		require(MODELS.'users.php');
 		require(MODELS.'albums.php');
+
 		$cur_user = users_getCurrentUser();
+
 		if ($cur_user['id'] != -1)
 		{
 			if ($_SERVER['REQUEST_METHOD'] == 'POST')
@@ -25,9 +28,12 @@
 				$name = $_POST['name'];
 				$description = $_POST['description'];
 				$private = 0;
-				if (isset($_POST['privacy'])) $private = 1;
-				albums_insert($name, $description, $cur_user['id'], $private);
-				header('location: '.WEB.'albums');
+				if (isset($_POST['privacy']) && !empty($_POST['privacy']))
+				{ 
+					$private = 1;
+				}
+				$album_id = albums_insert($name, $description, $cur_user['id'], $private);
+				header('location: '.WEB.'albums/'.$album_id);
 			}
 			else
 			{
@@ -36,48 +42,47 @@
 
 		}
 		else
-			header('location:'.WEB.'login');
+		{
+			header('location:'.WEB.'users/login');
+		}
 
 	}
 
-	function albums_showByUser($id)
+	function albums_showByUser($user_id)
 	{
 		require(MODELS.'users.php');
 		require(MODELS.'albums.php');
 
-		$cur_user = users_getById($id);
+		$cur_user = users_getCurrentUser();
 
-		if($cur_user === false)
-		{
-			header('location:'.WEB);
-		}
-		else
-		{
-			$albums = albums_getByUser($cur_user);
-			require(VIEWS.'show_albums.php');
-		}
+		$user = users_getById($user_id);
 
+		$public_only = ($cur_user['id'] < 0);
+
+		$albums = albums_getByUserId($user_id, $public_only);
+
+		require(VIEWS.'show_albums_by_user.php');
 	}
 
-	function albums_showById($id)
+	function albums_showById($album_id)
 	{
 		require(MODELS.'albums.php');
+		require(MODELS.'photo.php');
 		require(MODELS.'users.php');
 
 		$cur_user = users_getCurrentUser();
 
-		$album = albums_getById($id);
-		if ($album === false)
+		$album = albums_getById($album_id);
+
+		if ($album['private'] && $cur_user['id'] != $album['user_id'])
 		{
-			echo "Нельзя просто так взять и показать";
+			header('Location: '.WEB.'users/'.$album['user_id'].'/albums');
+			exit;
 		}
 		else
 		{
-			require(MODELS.'photo.php');
-			$photo = photos_getByAlbum($id);
-
+			$photos = photos_getbyAlbumId($album_id);
 			require(VIEWS.'show_photos_by_album.php');
-
 		}
 	}
 	

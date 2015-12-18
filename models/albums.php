@@ -1,17 +1,29 @@
 <?php
 
-	function albums_getAllPublic() {
+	function albums_getAll($public_only = false)
+	{
 		$db = get_db_connection();
-		$tmp = $db->query("SELECT * FROM albums WHERE private=0") or die($db->error);
-			if ($tmp->num_rows != 0)
+
+		$sql = "SELECT * FROM albums";
+
+		if ($public_only)
+		{
+			$sql .= " WHERE private != 1";
+		}
+
+		$tmp = $db->query($sql) or die($db->error);
+		if ($tmp->num_rows != 0)
+		{
+			while($row = $tmp->fetch_assoc())
 			{
-				while($row = $tmp->fetch_assoc())
-				{
-					$albums[] = $row;
-				}
+				$albums[] = $row;
 			}
-			else
-				$albums = [];
+		}
+		else
+		{
+			$albums = [];
+		}
+
 		return $albums;
 	}
 
@@ -35,11 +47,20 @@
 		$db->query("UPDATE albums SET name='".$name."', description='".$description."', private=".$private." WHERE id = ".$album_id) or die($db->error);
 	}
 	
-	function albums_getByUserId($user_id)
+	function albums_getByUserId($user_id, $public_only = false)
 	{
 		$db = get_db_connection();
 
-		$tmp = $db->query("SELECT * FROM albums WHERE user_id = {$user_id}") or die($db->error);
+		if ($public_only)
+		{
+			$sql = "SELECT * FROM albums WHERE user_id = {$user_id} AND private != 1";
+		}
+		else
+		{
+			$sql = "SELECT * FROM albums WHERE user_id = {$user_id}";
+		}
+
+		$tmp = $db->query($sql) or die($db->error);
 		
 		if ($tmp->num_rows != 0)
 		{

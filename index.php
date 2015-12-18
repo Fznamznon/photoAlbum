@@ -33,11 +33,15 @@
 	
 	switch(true)
 	{
+		/* main page */
+
 		case empty($queryString):
 		$controller = 'index';
 		$action = 'index';
 		$params = array();
 		break;
+
+		/* photos */
 
 		case preg_match('/^photos\/([\d]+)\/?$/', $queryString, $matches) :
 		$controller = 'photos';
@@ -51,29 +55,7 @@
 		$params = [];
 		break;
 
-		case preg_match('/^register\/?$/', $queryString) :
-		$controller = 'users';
-		$action = 'register';
-		$params = [];
-		break; 
-
-		case preg_match('/^login\/?$/', $queryString) :
-		$controller = 'users';
-		$action = 'login';
-		$params = [];
-		break;
-		
-		case preg_match('/^logout\/?$/', $queryString) :
-		$controller = 'users';
-		$action = 'logout';
-		$params = [];
-		break;
-		
-		case preg_match('/^public\/?$/', $queryString) :
-		$controller = 'albums';
-		$action = 'public';
-		$params = [];
-		break;
+		/* albums */
 		
 		case preg_match('/^albums\/?$/', $queryString) :
 		$controller = 'albums';
@@ -87,15 +69,29 @@
 		$params = [];
 		break;
 
-		case preg_match('/^users\/([\d]+)\/albums\/?$/', $queryString, $matches) :
-		$controller = 'albums';
-		$action = 'showByUser';
-		$params = [$matches[1]];
-		break;
-
 		case preg_match('/^albums\/([\d]+)\/?$/', $queryString, $matches):
 		$controller = 'albums';
 		$action = 'showById';
+		$params = [$matches[1]];
+		break;
+
+		case preg_match('/^albums\/([\d]+)\/delete\/?$/', $queryString, $matches) :
+		$controller = 'albums';
+		$action = 'delete';
+		$params = array($matches[1]);
+		break;
+		
+		case preg_match('/^albums\/([\d]+)\/edit\/?$/', $queryString, $matches) :
+		$controller = 'albums';
+		$action = 'edit';
+		$params = array($matches[1]);
+		break;
+
+		/* users */
+
+		case preg_match('/^users\/([\d]+)\/albums\/?$/', $queryString, $matches) :
+		$controller = 'albums';
+		$action = 'showByUser';
 		$params = [$matches[1]];
 		break;
 
@@ -105,29 +101,25 @@
 		$params = [$matches[1]];
 		break;
 
-		case preg_match('/^users\/logout\/?$/', $queryString, $matches) :
+		/* login, logout, register  */
+
+		case preg_match('/^users\/register\/?$/', $queryString) :
+		$controller = 'users';
+		$action = 'register';
+		$params = [];
+		break;
+
+		case preg_match('/^users\/login\/?$/', $queryString) :
+		$controller = 'users';
+		$action = 'login';
+		$params = [];
+		break;
+		
+		case preg_match('/^users\/logout\/?$/', $queryString) :
 		$controller = 'users';
 		$action = 'logout';
 		$params = [];
 		break;
-
-		
-		case preg_match('/^albums\/delete\/(\d+)$/', $queryString, $matches) :
-		$controller = 'albums';
-		$action = 'delete';
-		$params = array($matches[1]);
-		break;
-		
-		case preg_match('/^albums\/edit\/(\d+)$/', $queryString, $matches) :
-		$controller = 'albums';
-		$action = 'edit';
-		$params = array($matches[1]);
-		break;
-		
-		case preg_match('/^albums\/([\d]+)\/?$/', $queryString, $matches) :
-		$controller = 'albums';
-		$action = 'show';
-		$params = array($matches[1]);
 	}
 
 	$filename = CONTROLLERS.$controller.'.php';

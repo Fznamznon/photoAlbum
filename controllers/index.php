@@ -7,7 +7,9 @@
 
 		$cur_user = users_getCurrentUser();
 		
-		$photo = photos_getAll();
+		$public_only = ($cur_user['id'] < 0);
+
+		$photo = photos_getAll($public_only);
 		
 		require(VIEWS."index.php");
 	}

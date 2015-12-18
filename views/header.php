@@ -9,48 +9,44 @@
 
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-<style type="text/css">
-		.container{
-			background-color:  rgba(255, 255, 255, 0.8);			
-			box-shadow: 0 0 10px #000;
-			border-radius: 5px; 
-			margin-top: 0px;
-			min-height: 500px;
+	<style type="text/css">
+			.container{
+				background-color:  rgba(255, 255, 255, 0.8);			
+				box-shadow: 0 0 10px #000;
+				border-radius: 5px; 
+				margin-top: 0px;
+				min-height: 500px;
+				padding-bottom: 15px;
+			}
 
-		}
-
-		body{
-			background: url(<?php echo INC;  ?>background.jpg) no-repeat;
-			background-attachment: fixed;
-			padding-top: 48px;
-		}
-		.photo{
-			
-		}
-</style>
-
-
+			body{
+				background: url(<?php echo INC;  ?>background.jpg) no-repeat;
+				background-attachment: fixed;
+				padding-top: 48px;
+			}
+			.photo{
+				
+			}
+	</style>
 </head>
+<body>
 
 <nav class="navbar navbar-default navbar-fixed-top">
 	<div class = "container-fluid">
 		<ul class="nav navbar-nav">
-		<li><a class="navbar-brand" href="<?php echo WEB; ?>">Home</a></li>
-		<?php if ($cur_user['id'] == -1) : ?>
-		<li><a href= "<?php echo WEB.'login/' ?>">Login</a> </li>
-		<li><a href= "<?php echo WEB.'register/' ?>">Register</a> </li>
-		<?php else : ?>
-		<li><a href= "<?php echo WEB.'albums/add/' ?>">Add album</a></li>
-		<li><a href= "<?php echo WEB.'users/'."{$cur_user['id']}".'/albums/'; ?>">My Albums</a> </li>
-		<li><a href= "<?php echo WEB.'photos/upload/' ?>">Add photo</a> </li>
-		<li><a href= "<?php echo WEB.'users/'."{$cur_user['id']}".'/photos/'; ?>">My photos</a> </li>
-		<li><a href= "<?php echo WEB.'users/logout/' ?>">Logout</a></li>
-		<?php endif; ?>
+			<li><a class="navbar-brand" href="<?php echo WEB; ?>">Home</a></li>
+			<li><a href="<?php echo WEB; ?>">All photos</a></li>
+			<li><a href="<?php echo WEB; ?>albums">All albums</a></li>
+			<?php if ($cur_user['id'] == -1) : ?>
+				<li><a href= "<?php echo WEB; ?>users/login/">Login</a> </li>
+				<li><a href= "<?php echo WEB; ?>users/register/">Register</a> </li>
+			<?php else : ?>
+				<li><a href= "<?php echo WEB.'users/'."{$cur_user['id']}".'/albums/'; ?>">My Albums</a> </li>
+				<li><a href= "<?php echo WEB.'albums/add/' ?>">Add album</a></li>
+				<li><a href= "<?php echo WEB.'users/'."{$cur_user['id']}".'/photos/'; ?>">My photos</a> </li>
+				<li><a href= "<?php echo WEB.'photos/upload/' ?>">Add photo</a> </li>
+				<li><a href= "<?php echo WEB.'users/logout/' ?>">Logout</a></li>
+			<?php endif; ?>
 		</ul>
 	</div>
-
-
 </nav>
-
-
-<body>
