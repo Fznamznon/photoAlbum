@@ -68,12 +68,22 @@
 		$params = [];
 		break;
 
+		case preg_match('/^albums\/?$/', $queryString) :
+		$controller = 'albums';
+		$action = 'index';
+		$params = [];
+		break;
+		
 		case preg_match('/^albums\/add\/?$/', $queryString) :
 		$controller = 'albums';
 		$action = 'add';
 		$params = [];
 		break;
 		
+		case preg_match('/^albums\/(\d+)$/', $queryString, $matches) :
+		$controller = 'albums';
+		$action = 'show';
+		$params = array($matches[1]);
 	}
 
 	$filename = CONTROLLERS.$controller.'.php';

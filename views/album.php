@@ -10,7 +10,7 @@
 	<input type="button" value="Загрузить фотографию" onClick="location.href='<?php echo WEB.'photos/upload'; ?>';">
 	<br>
 	<h3>Привет, <?php echo $user['name']; ?>!</h3>
-
+	<h4> <?php echo $albumname; ?> </h4>
 	<?php
 
 		if (count($photo) != 0)

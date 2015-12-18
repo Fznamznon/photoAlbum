@@ -23,6 +23,18 @@
 
 	}
 
+	function photos_getByAlbum($album_id) {
+		$db = get_db_connection();
+		$tmp = $db->query("SELECT * from photo WHERE album_id = $album_id");
+		
+		if ($tmp->num_rows != 0) {
+			while ($row = $tmp->fetch_assoc()) {
+				$photo[] = $row;
+			}	
+		}
+		else $photo =[];
+		return $photo;
+	}
 
 	function photos_getById($id)
 	{
