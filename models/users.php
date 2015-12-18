@@ -3,24 +3,25 @@
 	function users_getCurrentUser()
 	{
 		$db = get_db_connection();
-		if (isset($_SESSION['user']))
+
+		if (isset($_SESSION['user']) && !empty($_SESSION['user']))
 		{
 			$user = users_getById($_SESSION['user']);
 		}
 		else
 		{
 			$user = [
-				'name'=>'Guest',
-				'id'=> -1,
+				'name' => 'Guest',
+				'id' => -1,
 			];
 		}
+
 		return $user;
 	}
 
 
 	function users_insert($login, $password, $name)
 	{
-	
 		$db = get_db_connection();
 		$c = $db->query("SELECT count(id) FROM users WHERE login = '$login'");
 		$c = $c->fetch_row();
@@ -71,7 +72,7 @@
 	{
 		$db = get_db_connection();
 
-		$tmp = $db->query("SELECT * from users WHERE id = $id");
+		$tmp = $db->query("SELECT * from users WHERE id = $id") or die($db->error);
 
 
 		if ($tmp->num_rows != 0)

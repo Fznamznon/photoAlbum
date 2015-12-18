@@ -2,7 +2,6 @@
 
 	function index_index()
 	{
-		
 		require(MODELS.'photo.php');
 		require(MODELS.'users.php');
 
@@ -10,7 +9,6 @@
 		
 		$photo = photos_getAll();
 		
-		require(VIEWS."view.php");
-
+		require(VIEWS."index.php");
 	}
 ?>

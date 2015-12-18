@@ -95,8 +95,6 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 
-
-
 --
 -- Ограничения внешнего ключа таблицы `albums`
 --

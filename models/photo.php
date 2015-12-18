@@ -23,16 +23,22 @@
 
 	}
 
-	function photos_getByAlbum($album_id) {
+	function photos_getByAlbumId($album_id)
+	{
 		$db = get_db_connection();
-		$tmp = $db->query("SELECT * from photo WHERE album_id = $album_id");
+
+		$tmp = $db->query("SELECT * FROM photo WHERE album_id = {$album_id}");
 		
-		if ($tmp->num_rows != 0) {
-			while ($row = $tmp->fetch_assoc()) {
+		$photo = [];
+
+		if ($tmp->num_rows != 0)
+		{
+			while ($row = $tmp->fetch_assoc())
+			{
 				$photo[] = $row;
 			}	
 		}
-		else $photo =[];
+
 		return $photo;
 	}
 
@@ -130,28 +136,6 @@
 		}while ($c[0] != 0);
 
 		return $filename;
-	}
-
-	function photos_getByAlbum($id)
-	{
-		$db = get_db_connection();
-
-		$tmp = $db->query("SELECT * FROM photo WHERE album_id = $id");
-		
-		if ($tmp->num_rows != 0)
-		{
-			
-			while ($row = $tmp->fetch_assoc())
-			{
-				$photo[] = $row;
-
-			}	
-
-		}
-		else
-			$photo = [];
-
-		return $photo;
 	}
 
 	function photos_getByUser($id)
