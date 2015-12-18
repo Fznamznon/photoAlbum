@@ -72,6 +72,10 @@
 			if ($album['user_id'] == $user['id']) {
 				if ($_SERVER['REQUEST_METHOD'] == 'POST')
 				{
+					$photos = photos_getbyAlbum($album_id);
+					foreach ($photos as $ph) {
+						unlink(ROOT."files/".$ph['filename']);
+					}
 					albums_DBdelete($album_id);
 					header('location: '.WEB.'albums');
 				}
@@ -118,11 +122,13 @@
 						photos_edit($key, $value, $edited_photos_desc[$key], $to_album[$key]);
 					}
 					if (count($photos_to_delete)) {
-						foreach($photos_to_delete as $ph) {
-							photos_deletebyID($ph);
+						foreach($photos_to_delete as $photo_id) {
+							$ph = photos_getById($photo_id);
+							unlink(ROOT."files/".$ph['filename']);
+							photos_deletebyID($photo_id);
 						}
 					}
-					header('location: '.WEB.'albums/'.$album['id']);
+					#header('location: '.WEB.'albums/'.$album['id']);
 				}
 				else {
 					$photo = photos_getbyAlbum($album_id);
