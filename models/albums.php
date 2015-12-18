@@ -18,7 +18,7 @@
 	function albums_insert($name, $description, $user, $private)
 	{
 		$db = get_db_connection();
-		
+		if ($name == "") $name = "Новый альбом";
 		$db->query("INSERT INTO albums VALUES (NULL, '$name', {$user['id']}, '$private', '{$description}', 0)") or die($db->error);
 
 	}
