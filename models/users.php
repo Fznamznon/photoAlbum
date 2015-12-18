@@ -10,7 +10,7 @@
 		else
 		{
 			$user = [
-				'name'=>'Гость',
+				'name'=>'Guest',
 				'id'=> -1,
 			];
 		}

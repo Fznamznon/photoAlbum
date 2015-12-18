@@ -19,13 +19,15 @@
 		}
 		else
 		{
-			require(VIEWS.'users.php');
+			require(VIEWS.'users_register.php');
 
 		}
 	}
 
 	function users_login()
 	{
+		require(MODELS."users.php");
+
 		$cur_user = users_getCurrentUser();
 
 		if ($_SERVER['REQUEST_METHOD'] == "POST")
@@ -35,17 +37,40 @@
 			$password = $_POST['password'];
 			
 
-			require(MODELS."users.php");
 			$user = users_select($login, $password);
 			if ($user !== false)
 			{
 				$_SESSION['user'] = $user['id'];
+				header('Location: '.WEB);
+			}
+			else
+			{
+				echo "error";
 			}
 		}
 		else
 		{
 			require(VIEWS.'users_login.php');
 		}
+	}
+
+	function users_logout()
+	{
+		require(MODELS."users.php");
+
+		$cur_user = users_getCurrentUser();
+
+		if ($cur_user['id'] != -1)
+		{
+			$cur_user['id'] = -1;
+			$cur_user['name'] = 'Guest';
+
+			unset($_SESSION['user']);
+
+		}
+
+		header('location: '.WEB);
+
 	}
 
 ?>

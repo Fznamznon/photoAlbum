@@ -86,6 +86,13 @@
 		$action = 'showByUser';
 		$params = [$matches[1]];
 		break;
+
+		case preg_match('/^users\/logout\/?$/', $queryString, $matches) :
+		$controller = 'users';
+		$action = 'logout';
+		$params = [];
+		break;
+
 		
 	}
 

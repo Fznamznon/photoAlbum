@@ -44,6 +44,7 @@
 		<li><a href= "<?php echo WEB.'users/'."{$cur_user['id']}".'/albums/'; ?>">My Albums</a> </li>
 		<li><a href= "<?php echo WEB.'photos/upload/' ?>">Add photo</a> </li>
 		<li><a href= "<?php echo WEB.'users/'."{$cur_user['id']}".'/photos/'; ?>">My photos</a> </li>
+		<li><a href= "<?php echo WEB.'users/logout/' ?>">Logout</a></li>
 		<?php endif; ?>
 		</ul>
 	</div>
