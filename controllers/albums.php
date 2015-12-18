@@ -6,6 +6,7 @@
 		if ($user['id'] != -1)
 		{
 			$albums = albums_getbyUser($user);
+			require(VIEWS."header.php");
 			require(VIEWS.'albums.php');
 		}
 		else
@@ -45,6 +46,7 @@
 		$album = albums_getbyID($album_id);
 		if ($album['user_id'] == $user['id']) {
 			$photo = photos_getbyAlbum($album_id);
+			require(VIEWS."header.php");
 			require(VIEWS."album.php");
 		}
 		else
