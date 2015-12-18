@@ -8,16 +8,9 @@
 
 		$photo = photos_getAll();	
 		
-		if (isset($_SESSION['user']))
-		{
-			$user = users_getById($_SESSION['user']);
-			require(VIEWS."header.php");
-			require(VIEWS."view.php");
-		}
-		else
-		{
-			require(VIEWS."view_guest.php");
-		}
+		$user = users_getCurrentUser();
+		require(VIEWS."header.php");
+		require(VIEWS."view.php");
 	}
 	
 ?>

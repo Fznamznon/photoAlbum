@@ -86,6 +86,12 @@
 		$params = array($matches[1]);
 		break;
 		
+		case preg_match('/^albums\/edit\/(\d+)$/', $queryString, $matches) :
+		$controller = 'albums';
+		$action = 'edit';
+		$params = array($matches[1]);
+		break;
+		
 		case preg_match('/^albums\/(\d+)$/', $queryString, $matches) :
 		$controller = 'albums';
 		$action = 'show';
@@ -93,6 +99,7 @@
 	}
 
 	$filename = CONTROLLERS.$controller.'.php';
+
 	if (file_exists($filename) && is_readable($filename))
 	{
 		require($filename);

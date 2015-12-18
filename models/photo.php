@@ -62,6 +62,11 @@
 			$album = 'NULL';
 		$db->query("INSERT INTO photo VALUES (NULL, '$name', '$description', '$filename', '$user', ".$album.")");
 	}
+	
+	function photos_deletebyID($photo_id) {
+		$db = get_db_connection();
+		$db->query("DELETE FROM photo WHERE id = ".$photo_id) or die ($db->error);
+	}
 
 	function generate_filename($name)
 	{

@@ -5,9 +5,11 @@
 </head>
 <body>
 	<?php _header();?>
-	<h4> <?php echo $album['name']; ?> </h4>
-	<a href='<?php echo WEB.'albums/delete/'.$album['id']; ?>'> Удалить альбом</a> <br><br>
-	<?php
+	<h4>
+	Альбом: <?php echo $album['name']; ?> <br>
+	Владелец: <?php echo $album['user']['name']." (".$album['user']['login'].")"; ?>
+	</h4>
+	<?php if ($album['user_id'] == $user['id']) echo "<a href='".WEB."albums/edit/".$album['id']."'> Редактировать альбом</a> <br><br>";
 
 		if (count($photo) != 0)
 		{
