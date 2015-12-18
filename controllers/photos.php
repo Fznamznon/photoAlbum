@@ -38,9 +38,17 @@
 							exit();
 						}
 				}
+				else {
+					$errorString = "Не выбрана фотография";
+					$user = users_getCurrentUser();
+					require(MODELS."albums.php");
+					$albums = albums_getByUser($user);
+					require(VIEWS."upload.php");
+				}
 			}
 			else
 			{
+				$errorString = "";
 				$user = users_getCurrentUser();
 				require(MODELS."albums.php");
 				$albums = albums_getByUser($user);
