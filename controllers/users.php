@@ -9,14 +9,19 @@
 			$login = $_POST['login'];
 			$password = $_POST['password'];
 			$name = $_POST['name'];
-
-			require(MODELS."users.php");
-
-			if (!users_insert($login, $password, $name)) {
-				$errorString = "Такой логин уже существует!";
+			if ($login == "") {
+				$errorString = "Введите непустой логин";
 				require(VIEWS.'users.php');
 			}
-			else header("location: ".WEB."login");
+			else {
+				require(MODELS."users.php");
+
+				if (!users_insert($login, $password, $name)) {
+					$errorString = "Такой логин уже существует!";
+					require(VIEWS.'users.php');
+				}
+				else header("location: ".WEB."login");
+			}
 		}
 		else
 		{

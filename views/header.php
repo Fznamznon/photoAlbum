@@ -11,8 +11,7 @@
 				Для того, чтобы загрузить свои фотографии, войдите или зарегистрируйтесь.</h4>";
 			}
 			else {
-				echo "<a href=".WEB."albums>Мои альбомы</a> &nbsp;";
-				echo "<a href=".WEB."photos/upload>Загрузить фотографию</a> &nbsp;";
+				echo "<a href=".WEB."albums>Моя галерея</a> &nbsp;";
 				echo "<a href=".WEB."logout>Выйти</a> &nbsp;";
 				echo "<br>";
 				echo "<h3>Привет, ".$user['name']."!</h3>";
