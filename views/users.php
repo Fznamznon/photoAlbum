@@ -8,7 +8,7 @@
 Пароль: <input type = "password" name = "password"> 
 <br>
 <input type = "submit">
-
+<input type="button" value="Отмена" onClick="location.href='<?php echo WEB;?>'">
 </form>
 
 </html>

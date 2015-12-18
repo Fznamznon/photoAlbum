@@ -28,12 +28,13 @@
 				{
 
 						$name = $_POST['name'];
+						$description = $_POST['description'];
 						$user = $_SESSION['user'];
 						$album = $_POST['album'];
 						$filename = generate_filename($_FILES['file']['name']);
 						if (move_uploaded_file($_FILES['file']['tmp_name'], ROOT."files/{$filename}"))
 						{
-							photos_insert($name, '', $filename, $user, $album);
+							photos_insert($name, $description, $filename, $user, $album);
 							header('location: '.WEB);
 							exit();
 						}

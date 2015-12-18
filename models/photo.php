@@ -89,6 +89,26 @@
 	
 	function photos_edit($photo_id, $name, $description, $album) {
 		$db = get_db_connection();
+		$tmp = $db->query("SELECT album_id FROM photo WHERE id = ".$photo_id) or die ($db->error);
+		if ($tmp->num_rows != 0) {
+			$old_album = $tmp->fetch_assoc()['album_id'];
+			if ($old_album != $album) {
+				
+				$tmp = $db->query("SELECT numberofphotos FROM albums WHERE id=".$old_album);
+				if ($tmp->num_rows != 0) {
+					$num = $tmp->fetch_assoc()['numberofphotos'];
+					$num -= 1;
+					$db->query("UPDATE albums SET numberofphotos=".$num." WHERE id=".$old_album) or die($db->error);
+				}
+				
+				$tmp = $db->query("SELECT numberofphotos FROM albums WHERE id=".$album);
+				if ($tmp->num_rows != 0) {
+					$num = $tmp->fetch_assoc()['numberofphotos'];
+					$num += 1;
+					$db->query("UPDATE albums SET numberofphotos=".$num." WHERE id=".$album) or die($db->error);
+				}
+			}
+		}
 		$db->query("UPDATE photo SET name='".$name."', description='".$description."', album_id=".$album." WHERE id=".$photo_id) or die ($db->error);
 	}
 

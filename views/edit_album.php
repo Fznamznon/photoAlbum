@@ -37,7 +37,7 @@
 
 				echo "</select><br>";
 				echo "<img src = '".UPLOAD."{$value['filename']}' width = '150'> ";
-				echo "<br>";
+				echo "<br><br>";
 			}
 		}
 		else

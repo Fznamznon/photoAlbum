@@ -19,7 +19,7 @@
 				echo "<b>Название: ".$value['name']."</b><br>";
 				echo "Описание: ".$value['description']."<br>";
 				echo "<img src = '".UPLOAD."{$value['filename']}' width = '600'> ";
-				echo "<br>";
+				echo "<br><br>";
 			}
 		}
 		else

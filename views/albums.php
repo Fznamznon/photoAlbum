@@ -5,7 +5,7 @@
 </head>
 <body>
 	<?php _header();?>
-	<a href='<?php echo WEB.'albums/add'; ?>'> Создать альбом </a> <br>
+	<a href='<?php echo WEB.'albums/add'; ?>'>Создать альбом</a> <br>
 	<h4>Мои альбомы: </h4>
 
 	<?php
