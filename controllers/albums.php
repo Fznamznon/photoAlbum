@@ -13,6 +13,14 @@
 			header('location:'.WEB);
 	}	
 	
+	function albums_public() {
+		require(MODELS.'users.php');
+		require(MODELS.'albums.php');
+		$albums = albums_getAllPublic();
+		require(VIEWS."header.php");
+		require(VIEWS.'public.php');
+	}
+	
 	function albums_add()
 	{
 		require(MODELS.'users.php');

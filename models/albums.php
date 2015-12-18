@@ -1,5 +1,20 @@
 <?php
 
+	function albums_getAllPublic() {
+		$db = get_db_connection();
+		$tmp = $db->query("SELECT * FROM albums WHERE private=0") or die($db->error);
+			if ($tmp->num_rows != 0)
+			{
+				while($row = $tmp->fetch_assoc())
+				{
+					$albums[] = $row;
+				}
+			}
+			else
+				$albums = [];
+		return $albums;
+	}
+
 	function albums_insert($name, $description, $user, $private)
 	{
 		$db = get_db_connection();

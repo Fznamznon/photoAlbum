@@ -16,7 +16,7 @@
 				$errorString = "Такой логин уже существует!";
 				require(VIEWS.'users.php');
 			}
-			else header("location: ".WEB);
+			else header("location: ".WEB."login");
 		}
 		else
 		{

@@ -67,7 +67,13 @@
 		$action = 'logout';
 		$params = [];
 		break;
-
+		
+		case preg_match('/^public\/?$/', $queryString) :
+		$controller = 'albums';
+		$action = 'public';
+		$params = [];
+		break;
+		
 		case preg_match('/^albums\/?$/', $queryString) :
 		$controller = 'albums';
 		$action = 'index';

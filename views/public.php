@@ -5,8 +5,8 @@
 </head>
 <body>
 	<?php _header();?>
-	<a href='<?php echo WEB.'albums/add'; ?>'> Создать альбом </a> <br>
-	<h4>Мои альбомы: </h4>
+	
+	<h4>Публичные альбомы: </h4>
 
 	<?php
 
@@ -14,7 +14,7 @@
 		{
 			foreach($albums as $album)
 			{
-				echo "<a href = '".WEB.'albums/'.$album['id']."'> ".$album['name']."</a><br>";
+				echo "<a href = '".WEB.'albums/'.$album['id']."'> ".$album['name']."</a> (Владелец: ".users_getbyID($album['user_id'])['login'].")<br>";
 			}
 		}
 		else
