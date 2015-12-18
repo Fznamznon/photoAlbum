@@ -8,3 +8,7 @@ Small project for study web technologies
 * Functionality to delete photos - done by kukanya
 * Megre interface from Dev_Mary branch
 * Increase security of application by filtering input data (partly done for registring a user and creating an album - kukanya)
+
+### On branch Dev_Mary
+
+* Improved design
