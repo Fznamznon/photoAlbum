@@ -15,12 +15,13 @@
 		return $albums;
 	}
 
-	function albums_insert($name, $description, $user, $private)
+	function albums_insert($name, $description, $user_id, $private)
 	{
 		$db = get_db_connection();
 		
-		$db->query("INSERT INTO albums VALUES (NULL, '$name', {$user['id']}, '$private', '{$description}', 0)") or die($db->error);
+		$db->query("INSERT INTO albums VALUES (NULL, '$name', {$user_id}, '$private', '{$description}')") or die($db->error);
 
+		return $db->insert_id;
 	}
 
 	function albums_DBdelete($album_id) {
@@ -34,26 +35,25 @@
 		$db->query("UPDATE albums SET name='".$name."', description='".$description."', private=".$private." WHERE id = ".$album_id) or die($db->error);
 	}
 	
-	function albums_getByUser($user)
+	function albums_getByUserId($user_id)
 	{
 		$db = get_db_connection();
 
+		$tmp = $db->query("SELECT * FROM albums WHERE user_id = {$user_id}") or die($db->error);
 		
-		if ($user['id'] != -1)
+		if ($tmp->num_rows != 0)
 		{
-			$tmp = $db->query("SELECT * FROM albums WHERE user_id = {$user['id']}") or die($db->error);
-			if ($tmp->num_rows != 0)
+			while($row = $tmp->fetch_assoc())
 			{
-				while($row = $tmp->fetch_assoc())
-				{
-					$albums[] = $row;
-				}
+				$albums[] = $row;
 			}
-			else
-				$albums = [];
 		}
-		return $albums;
+		else
+		{
+			$albums = [];
+		}
 
+		return $albums;
 	}
 
 	function albums_getById($id)

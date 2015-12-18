@@ -39,7 +39,7 @@
 		$params = array();
 		break;
 
-		case preg_match('/^photos\/(\d+)$/', $queryString, $matches) :
+		case preg_match('/^photos\/([\d]+)\/?$/', $queryString, $matches) :
 		$controller = 'photos';
 		$action = 'show';
 		$params = array($matches[1]);
@@ -124,7 +124,7 @@
 		$params = array($matches[1]);
 		break;
 		
-		case preg_match('/^albums\/(\d+)$/', $queryString, $matches) :
+		case preg_match('/^albums\/([\d]+)\/?$/', $queryString, $matches) :
 		$controller = 'albums';
 		$action = 'show';
 		$params = array($matches[1]);

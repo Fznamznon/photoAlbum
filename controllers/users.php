@@ -3,6 +3,7 @@
 	function users_register()
 	{
 		require(MODELS."users.php");
+		require(MODELS."albums.php");
 
 		$errorString = null;
 
@@ -16,13 +17,15 @@
 				$password = $_POST['password'];
 				$name = $_POST['name'];
 
-				if (!users_insert($login, $password, $name)) 
+				if (($user_id = users_insert($login, $password, $name)) === false) 
 				{
 					$errorString = "Такой логин уже существует!";
 					require(VIEWS.'users_register.php');
 				}
 				else 
 				{
+					albums_insert('Без названия', 'Временный альбом для неразобранных фоток', $user_id, 1);
+
 					header("location: ".WEB."login");
 				}
 			}

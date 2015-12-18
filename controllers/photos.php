@@ -11,69 +11,85 @@
 		$photo = photos_getById($id);
 		$photo['user'] = users_getById($photo['user_id']);
 		$photo['album'] = albums_getById($photo['album_id']);
-		if ($photo['album'] == false) $photo['album'] = ['id' => -1, 'name' => 'Без альбома'];
-		require(VIEWS."photo.php");
 
+		if ($photo['album']['private'] && $cur_user['id'] != $photo['album']['user_id'])
+		{
+			header('Location: '.WEB);
+			exit;
+		}
+		else
+		{
+			require(VIEWS."photo.php");
+		}
 	}
 
 	function photos_upload()
 	{
-
 		require(MODELS."photo.php");
 		require(MODELS."users.php");
+		require(MODELS."albums.php");
 
 		$cur_user = users_getCurrentUser();
 
 		if ($cur_user['id'] > 0)
 		{
+			$albums = albums_getByUserId($cur_user['id']);
+			$errorString = null;
+
 			if($_SERVER['REQUEST_METHOD'] == "POST")
 			{
 				if ($_FILES['file']['error'] == 0)
 				{
-						$name = $_POST['name'];
-						$description = $_POST['description'];
-						$album = $_POST['album'];
-						$filename = generate_filename($_FILES['file']['name']);
-						if (move_uploaded_file($_FILES['file']['tmp_name'], ROOT."files/{$filename}"))
-						{
-							photos_insert($name, $description, $filename, $cur_user['id'], $album);
-							header('location: '.WEB);
-							exit();
-						}
+					$name = $_POST['name'];
+					$description = $_POST['description'];
+					$album_id = $_POST['album_id'];
+					$filename = generate_filename($_FILES['file']['name']);
+
+					if (move_uploaded_file($_FILES['file']['tmp_name'], ROOT."files/{$filename}"))
+					{
+						$photo_id = photos_insert($name, $description, $filename, $cur_user['id'], $album_id);
+						header('location: '.WEB);
+						exit();
+					}
+					else
+					{
+						$errorString = "Не удалось сохранить фотографию";
+					
+						require(VIEWS."upload.php");
+					}
 				}
-				else {
-					$errorString = "Не выбрана фотография";
-					$user = users_getCurrentUser();
-					require(MODELS."albums.php");
-					$albums = albums_getByUser($user);
+				else 
+				{
+					$errorString = "Не удалось загрузить фотографию";
+					
 					require(VIEWS."upload.php");
 				}
 			}
 			else
 			{
-				$errorString = "";
-				require(MODELS."albums.php");
-				$albums = albums_getByUser($cur_user);
 				require(VIEWS."upload.php");
 			}
 		}
 		else
+		{
 			header('location:'.WEB.'login');
-		
+		}
 	}
 
-	function photos_showByUser($id)
+	function photos_showByUser($user_id)
 	{
 		require(MODELS."photo.php");
 		require(MODELS."users.php");
 
 		$cur_user = users_getCurrentUser();
-		$user = users_getById($id);
-		$photo = photos_getByUser($id);
+
+		$user = users_getById($user_id);
+
+		$private_only = ($cur_user['id'] != $user_id);
+
+		$photos = photos_getByUserId($user_id, $private_only);
 
 		require(VIEWS.'show_photos_by_user.php');
-
 	}
-
 
 ?>

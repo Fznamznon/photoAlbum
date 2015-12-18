@@ -33,7 +33,9 @@
 
 		$pass = sha1($password);
 
-		return $db->query("INSERT INTO users VALUES(NULL, '$login', '$pass', '$name')") or die($db->error);
+		$db->query("INSERT INTO users VALUES(NULL, '$login', '$pass', '$name')") or die($db->error);
+
+		return $db->insert_id;
 	}
 
 	function users_tryLogin($login, $password)
