@@ -96,6 +96,7 @@
 		require(VIEWS."header.php");
 		$user = users_getCurrentUser();
 		$album = albums_getbyID($album_id);
+		$albums = albums_getByUser($user);
 		if ($album !== NULL) {
 			$album['user'] = users_getbyID($album['user_id']);
 			if ($album['user_id'] == $user['id']) {
@@ -104,12 +105,21 @@
 					$name = $_POST['name'];
 					$description = $_POST['description'];
 					$private = 0;
-					$photos_to_delete = $_POST['photos_to_delete'];
-					
+					if (isset($_POST['photos_to_delete'])) {
+						$photos_to_delete = $_POST['photos_to_delete'];
+					}
+					else $photos_to_delete = [];
+					$edited_photos = $_POST['edited_photos'];
+					$to_album = $_POST['to_album'];
 					if (isset($_POST['privacy'])) $private = 1;
 					albums_DBedit($album_id, $name, $description, $private);
-					foreach($photos_to_delete as $ph) {
-						photos_deletebyID($ph);
+					foreach ($edited_photos as $key => $value) {
+						photos_edit($key, $value, $to_album[$key]);
+					}
+					if (count($photos_to_delete)) {
+						foreach($photos_to_delete as $ph) {
+							photos_deletebyID($ph);
+						}
 					}
 					header('location: '.WEB.'albums/'.$album['id']);
 				}
