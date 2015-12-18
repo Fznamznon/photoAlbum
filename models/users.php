@@ -33,13 +33,10 @@
 
 		$pass = sha1($password);
 
-		$db->query("INSERT INTO users VALUES(NULL, '$login', '$pass', '$name')");
-
-		return true;
-
+		return $db->query("INSERT INTO users VALUES(NULL, '$login', '$pass', '$name')") or die($db->error);
 	}
 
-	function users_select($login, $password)
+	function users_tryLogin($login, $password)
 	{
 		$db = get_db_connection();
 
@@ -56,16 +53,14 @@
 
 		$tmp = $db->query("SELECT * FROM users WHERE password = '$pass' AND login = '$login'");
 
+		$res = false;
+
 		if ($tmp->num_rows != 0)
 		{
-			
-			$user = $tmp->fetch_assoc();	
-			return $user;
+			$res = $tmp->fetch_assoc();	
 		}
-		else
-			return false;
-
 		
+		return $res;		
 	}
 
 	function users_getById($id)
@@ -74,12 +69,9 @@
 
 		$tmp = $db->query("SELECT * from users WHERE id = $id") or die($db->error);
 
-
 		if ($tmp->num_rows != 0)
 		{
-			
 			$user = $tmp->fetch_assoc();	
-
 		}
 		else
 		{	
@@ -87,7 +79,6 @@
 		}
 
 		return $user;
-
 	}
 
 ?>

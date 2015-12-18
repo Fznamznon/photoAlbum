@@ -27,11 +27,12 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `albums` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `user_id` int(11) NOT NULL,
   `private` tinyint(1) NOT NULL,
-  `description` text NOT NULL
+  `description` text NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -44,12 +45,13 @@ CREATE TABLE `albums` (
 --
 
 CREATE TABLE `photo` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `filename` varchar(255) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `album_id` int(11) NOT NULL
+  `album_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -62,10 +64,11 @@ CREATE TABLE `photo` (
 --
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `login` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -76,23 +79,15 @@ CREATE TABLE `users` (
 -- Индексы таблицы `albums`
 --
 ALTER TABLE `albums`
-  ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`);
 
 --
 -- Индексы таблицы `photo`
 --
 ALTER TABLE `photo`
-  ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `filename` (`filename`),
   ADD KEY `user_id` (`user_id`) USING BTREE,
   ADD KEY `album_id` (`album_id`);
-
---
--- Индексы таблицы `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
 
 
 --
