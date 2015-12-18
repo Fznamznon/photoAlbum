@@ -22,7 +22,8 @@
 		{
 			foreach($photo as $value)
 			{
-				echo "<input type='text' name='edited_photos[".$value['id']."]' value=".$value['name']."><br>" ;
+				echo "Название: <input type='text' name='edited_photos[".$value['id']."]' value='".$value['name']."'><br>" ;
+				echo "Описание: <input type='text' name='edited_photos_desc[".$value['id']."]' value='".$value['description']."'><br>" ;
 				echo "Удалить? <input type='checkbox' name='photos_to_delete[]' value=".$value['id']."><br>";
 				echo "Перенести в <select name='to_album[".$value['id']."]'>" ;
 

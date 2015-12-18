@@ -110,11 +110,12 @@
 					}
 					else $photos_to_delete = [];
 					$edited_photos = $_POST['edited_photos'];
+					$edited_photos_desc = $_POST['edited_photos_desc'];
 					$to_album = $_POST['to_album'];
 					if (isset($_POST['privacy'])) $private = 1;
 					albums_DBedit($album_id, $name, $description, $private);
 					foreach ($edited_photos as $key => $value) {
-						photos_edit($key, $value, $to_album[$key]);
+						photos_edit($key, $value, $edited_photos_desc[$key], $to_album[$key]);
 					}
 					if (count($photos_to_delete)) {
 						foreach($photos_to_delete as $ph) {

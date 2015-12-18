@@ -68,9 +68,9 @@
 		$db->query("DELETE FROM photo WHERE id = ".$photo_id) or die ($db->error);
 	}
 	
-	function photos_edit($photo_id, $name, $album) {
+	function photos_edit($photo_id, $name, $description, $album) {
 		$db = get_db_connection();
-		$db->query("UPDATE photo SET name='".$name."', album_id=".$album." WHERE id=".$photo_id) or die ($db->error);
+		$db->query("UPDATE photo SET name='".$name."', description='".$description."', album_id=".$album." WHERE id=".$photo_id) or die ($db->error);
 	}
 
 	function generate_filename($name)
