@@ -61,11 +61,30 @@
 		if ($album == -1)
 			$album = 'NULL';
 		$db->query("INSERT INTO photo VALUES (NULL, '$name', '$description', '$filename', '$user', ".$album.")");
+		$tmp = $db->query("SELECT numberofphotos FROM albums WHERE id=".$album);
+		if ($tmp->num_rows != 0) {
+			$num = $tmp->fetch_assoc()['numberofphotos'];
+			$num += 1;
+			$db->query("UPDATE albums SET numberofphotos=".$num." WHERE id=".$album) or die($db->error);
+		}
 	}
 	
 	function photos_deletebyID($photo_id) {
 		$db = get_db_connection();
-		$db->query("DELETE FROM photo WHERE id = ".$photo_id) or die ($db->error);
+		$tmp = $db->query("SELECT album_id FROM photo WHERE id = ".$photo_id) or die ($db->error);
+		if ($tmp->num_rows != 0) {
+			$album = $tmp->fetch_assoc()['album_id'];
+			
+			$db->query("DELETE FROM photo WHERE id = ".$photo_id) or die ($db->error);
+			
+			$tmp = $db->query("SELECT numberofphotos FROM albums WHERE id=".$album);
+			if ($tmp->num_rows != 0) {
+				$num = $tmp->fetch_assoc()['numberofphotos'];
+				$num -= 1;
+				$db->query("UPDATE albums SET numberofphotos=".$num." WHERE id=".$album) or die($db->error);
+			}
+		}
+		
 	}
 	
 	function photos_edit($photo_id, $name, $description, $album) {

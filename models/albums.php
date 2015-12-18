@@ -19,7 +19,7 @@
 	{
 		$db = get_db_connection();
 		
-		$db->query("INSERT INTO albums VALUES (NULL, '$name', {$user['id']}, '$private', '{$description}')") or die($db->error);
+		$db->query("INSERT INTO albums VALUES (NULL, '$name', {$user['id']}, '$private', '{$description}', 0)") or die($db->error);
 
 	}
 

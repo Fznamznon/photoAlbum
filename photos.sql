@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Дек 18 2015 г., 07:45
+-- Время создания: Дек 18 2015 г., 16:23
 -- Версия сервера: 10.1.9-MariaDB
 -- Версия PHP: 5.6.15
 
@@ -30,7 +30,9 @@ CREATE TABLE `albums` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `description` text NOT NULL
+  `private` tinyint(1) NOT NULL,
+  `description` text NOT NULL,
+  `numberofphotos` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------

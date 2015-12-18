@@ -14,7 +14,7 @@
 		{
 			foreach($albums as $album)
 			{
-				echo "<a href = '".WEB.'albums/'.$album['id']."'> ".$album['name']."</a><br>";
+				echo "<a href = '".WEB.'albums/'.$album['id']."'> ".$album['name']."</a> (".$album['numberofphotos']." фото)<br>";
 			}
 		}
 		else

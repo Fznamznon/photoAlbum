@@ -14,7 +14,8 @@
 		{
 			foreach($albums as $album)
 			{
-				echo "<a href = '".WEB.'albums/'.$album['id']."'> ".$album['name']."</a> (Владелец: ".users_getbyID($album['user_id'])['login'].")<br>";
+				echo "<a href = '".WEB.'albums/'.$album['id']."'> ".$album['name']."</a> (".$album['numberofphotos']." фото, 
+				владелец: ".users_getbyID($album['user_id'])['login'].")<br>";
 			}
 		}
 		else

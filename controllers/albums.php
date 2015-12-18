@@ -136,7 +136,7 @@
 							photos_deletebyID($photo_id);
 						}
 					}
-					#header('location: '.WEB.'albums/'.$album['id']);
+					header('location: '.WEB.'albums/'.$album['id']);
 				}
 				else {
 					$photo = photos_getbyAlbum($album_id);
