@@ -10,7 +10,8 @@
 	<input type="button" value="Загрузить фотографию" onClick="location.href='<?php echo WEB.'photos/upload'; ?>';">
 	<br>
 	<h3>Привет, <?php echo $user['name']; ?>!</h3>
-	<h4> <?php echo $albumname; ?> </h4>
+	<h4> <?php echo $album['name']; ?> </h4>
+	<a href='<?php echo WEB.'albums/delete/'.$album['id']; ?>'> Удалить альбом</a> <br><br>
 	<?php
 
 		if (count($photo) != 0)

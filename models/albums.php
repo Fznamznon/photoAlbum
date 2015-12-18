@@ -8,6 +8,12 @@
 
 	}
 
+	function albums_DBdelete($album_id) {
+		$db = get_db_connection();
+		$db->query("DELETE FROM photo WHERE album_id=$album_id") or die($db->error);
+		$db->query("DELETE FROM albums WHERE id=$album_id") or die($db->error);
+	}
+	
 	function albums_getByUser($user)
 	{
 		$db = get_db_connection();
