@@ -3,15 +3,14 @@
 	function index_index()
 	{
 		
+		require(MODELS.'photo.php');
 		require(MODELS.'users.php');
-		$user = users_getCurrentUser();
-		if ($user['id'] !== -1) {
-			header('location: '.WEB.'albums');
-		}
-		else {
-			header('location: '.WEB.'public');
-		}
+
+		$cur_user = users_getCurrentUser();
 		
+		$photo = photos_getAll();
 		
+		require(VIEWS."view.php");
+
 	}
 ?>

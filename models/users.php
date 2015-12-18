@@ -10,7 +10,7 @@
 		else
 		{
 			$user = [
-				'name'=>'Гость',
+				'name'=>'Guest',
 				'id'=> -1,
 			];
 		}
@@ -79,6 +79,10 @@
 			
 			$user = $tmp->fetch_assoc();	
 
+		}
+		else
+		{	
+			$user = false;
 		}
 
 		return $user;

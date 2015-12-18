@@ -1,23 +1,44 @@
-<html>
+<?php include VIEWS.'header.php' ?>
+<div class = "container">
+	<h3>Upload new photo</h3>
+	<div class="row">
+		<div class="col-sm-12">
+			<form class = "form-horizontal" style = "padding-top: 10px;" method = "POST" enctype = "multipart/form-data" action = "<?php echo WEB.'photos/upload'; ?>">
 <?php if ($errorString !== NULL) echo $errorString?>
-<form method = "POST" enctype = "multipart/form-data" action = "<?php echo WEB.'photos/upload'; ?>">
-		Название: <input type = "text" name = "name">
-		<br>
-		Описание: <input type = text" name = "description"> <br>
-		<input type = "file" name = "file">
-		<br>
-		Aльбом: <select name="album">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Name: </label> 
+					<div class="col-sm-10">
+						<input type = "text" name = "name" class="form-control">
+					</div>
+				</div>
 
-			<?php if (count($albums) != 0) : foreach ($albums as $key => $value) : ?>
-				
-				<option value = "<?php echo $value['id']; ?>"><?php echo $value['name']; ?> </option>
-				
-			<?php endforeach; endif;?>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-2">
+						<label>File input</label>
+						<input type = "file" name = "file">
+					</div>
+				</div>
+				<div class="form-group">
+				<label class="col-sm-2 control-label">Album: </label> 
+				<div class="col-sm-10">
+				<select name="album" class="form-control">
+					<option value="-1"> </option>
+					<?php if (count($albums) != 0) : foreach ($albums as $key => $value) : ?>
+						
+						<option value = "<?php echo $value['id']; ?>"><?php echo $value['name']; ?> </option>
+						
+					<?php endforeach; endif;?>
 
-		</select>
-		<br>
-		<input type = "submit">
-		<input type="button" value="Отмена" onClick="location.href='<?php echo WEB;?>'">
-	</form>
-	<br>
+				</select>
+				</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<input type = "submit" class="btn btn-default" value="Submit">
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
 </html>

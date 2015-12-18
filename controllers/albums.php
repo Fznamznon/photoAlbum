@@ -13,20 +13,12 @@
 			header('location:'.WEB);
 	}	
 	
-	function albums_public() {
-		require(MODELS.'users.php');
-		require(MODELS.'albums.php');
-		$albums = albums_getAllPublic();
-		require(VIEWS."header.php");
-		require(VIEWS.'public.php');
-	}
-	
 	function albums_add()
 	{
 		require(MODELS.'users.php');
 		require(MODELS.'albums.php');
-		$user = users_getCurrentUser();
-		if ($user['id'] != -1)
+		$cur_user = users_getCurrentUser();
+		if ($cur_user['id'] != -1)
 		{
 			if ($_SERVER['REQUEST_METHOD'] == 'POST')
 			{
@@ -34,7 +26,7 @@
 				$description = $_POST['description'];
 				$private = 0;
 				if (isset($_POST['privacy'])) $private = 1;
-				albums_insert($name, $description, $user, $private);
+				albums_insert($name, $description, $cur_user['id'], $private);
 				header('location: '.WEB.'albums');
 			}
 			else
@@ -48,25 +40,44 @@
 
 	}
 
-	function albums_show($album_id) {
-		require(MODELS."photo.php");
-		require(MODELS."users.php");
-		require(MODELS."albums.php");
-		$user = users_getCurrentUser();
-		$album = albums_getbyID($album_id);
-		if ($album != NULL) {
-			$album['user'] = users_getbyID($album['user_id']);
-			if ($album['user_id'] == $user['id'] or $album['private'] == 0) {
-				$photo = photos_getbyAlbum($album_id);
-				require(VIEWS."header.php");
-				require(VIEWS."album.php");
-			}
-			else {
-				header('location: '.WEB);
-			}
+	function albums_showByUser($id)
+	{
+		require(MODELS.'users.php');
+		require(MODELS.'albums.php');
+
+		$cur_user = users_getById($id);
+
+		if($cur_user === false)
+		{
+			header('location:'.WEB);
 		}
-		else {
-			header('location: '.WEB);
+		else
+		{
+			$albums = albums_getByUser($cur_user);
+			require(VIEWS.'show_albums.php');
+		}
+
+	}
+
+	function albums_showById($id)
+	{
+		require(MODELS.'albums.php');
+		require(MODELS.'users.php');
+
+		$cur_user = users_getCurrentUser();
+
+		$album = albums_getById($id);
+		if ($album === false)
+		{
+			echo "Нельзя просто так взять и показать";
+		}
+		else
+		{
+			require(MODELS.'photo.php');
+			$photo = photos_getByAlbum($id);
+
+			require(VIEWS.'show_photos_by_album.php');
+
 		}
 	}
 	

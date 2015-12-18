@@ -5,6 +5,9 @@
 		require(MODELS."photo.php");
 		require(MODELS."users.php");
 		require(MODELS."albums.php");
+
+		$cur_user = users_getCurrentUser();
+
 		$photo = photos_getById($id);
 		$photo['user'] = users_getById($photo['user_id']);
 		$photo['album'] = albums_getById($photo['album_id']);
@@ -18,23 +21,22 @@
 
 		require(MODELS."photo.php");
 		require(MODELS."users.php");
-		if (isset($_SESSION['user']))
+
+		$cur_user = users_getCurrentUser();
+
+		if ($cur_user['id'] > 0)
 		{
 			if($_SERVER['REQUEST_METHOD'] == "POST")
 			{
-				
-
 				if ($_FILES['file']['error'] == 0)
 				{
-
 						$name = $_POST['name'];
 						$description = $_POST['description'];
-						$user = $_SESSION['user'];
 						$album = $_POST['album'];
 						$filename = generate_filename($_FILES['file']['name']);
 						if (move_uploaded_file($_FILES['file']['tmp_name'], ROOT."files/{$filename}"))
 						{
-							photos_insert($name, $description, $filename, $user, $album);
+							photos_insert($name, $description, $filename, $cur_user['id'], $album);
 							header('location: '.WEB);
 							exit();
 						}
@@ -50,9 +52,8 @@
 			else
 			{
 				$errorString = "";
-				$user = users_getCurrentUser();
 				require(MODELS."albums.php");
-				$albums = albums_getByUser($user);
+				$albums = albums_getByUser($cur_user);
 				require(VIEWS."upload.php");
 			}
 		}
@@ -61,7 +62,18 @@
 		
 	}
 
+	function photos_showByUser($id)
+	{
+		require(MODELS."photo.php");
+		require(MODELS."users.php");
 
+		$cur_user = users_getCurrentUser();
+		$user = users_getById($id);
+		$photo = photos_getByUser($id);
+
+		require(VIEWS.'show_photos_by_user.php');
+
+	}
 
 
 ?>

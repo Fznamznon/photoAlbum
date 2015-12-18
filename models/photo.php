@@ -132,4 +132,48 @@
 		return $filename;
 	}
 
+	function photos_getByAlbum($id)
+	{
+		$db = get_db_connection();
+
+		$tmp = $db->query("SELECT * FROM photo WHERE album_id = $id");
+		
+		if ($tmp->num_rows != 0)
+		{
+			
+			while ($row = $tmp->fetch_assoc())
+			{
+				$photo[] = $row;
+
+			}	
+
+		}
+		else
+			$photo = [];
+
+		return $photo;
+	}
+
+	function photos_getByUser($id)
+	{
+		$db = get_db_connection();
+
+		$tmp = $db->query("SELECT * FROM photo WHERE user_id = $id");
+		
+		if ($tmp->num_rows != 0)
+		{
+			
+			while ($row = $tmp->fetch_assoc())
+			{
+				$photo[] = $row;
+
+			}	
+
+		}
+		else
+			$photo = [];
+
+		return $photo;
+	}
+
 ?>

@@ -69,6 +69,10 @@
 			$a = $tmp->fetch_assoc();	
 
 		}
+		else
+		{
+			$a = false;
+		}
 
 		return $a;
 

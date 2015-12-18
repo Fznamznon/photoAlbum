@@ -1,18 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-</head>
-<body>
+<?php include VIEWS.'header.php' ?>
 	
-	<br>
-	<?php
-			
-		echo "{$photo['name']} <br>" ;
-		echo "<img src = '".UPLOAD."{$photo['filename']}' width = '800'> ";
-		echo "<br>";
-		echo "User: {$photo['user']['name']} <br>";	
-		echo "Album: {$photo['album']['name']} <br>";
-	?>
+	
+	
+	<div class = "container">
+		<div class="row">
+			<div class="col-sm-12">
+			<?php
+					
+				echo "<h4>Name: {$photo['name']} </h4>" ;
+				echo "<img src = '".UPLOAD."{$photo['filename']}'  class='img-thumbnail'> <br> <br>";
+				echo "<p><strong>User: {$photo['user']['name']}</strong></p>";	
+				echo "<p><strong>Album: {$photo['album']['name']}</strong></p>";
+			?>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
