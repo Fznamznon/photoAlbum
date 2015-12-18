@@ -4,8 +4,10 @@
 	<title></title>
 </head>
 <body>
-<h3>Привет, <?php echo $user['name']; ?> !</h3>
-	
+	<input type="button" value="Выйти" onClick="location.href='<?php echo WEB.'logout'; ?>';">
+	<br>
+	<h3>Привет, <?php echo $user['name']; ?>!</h3>
+
 	<?php
 
 		if (count($photo) != 0)
@@ -19,7 +21,6 @@
 		}
 		else
 		{
-
 			echo "Нет фото";
 		}
 

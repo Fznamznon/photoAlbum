@@ -27,15 +27,15 @@
 	$tmp = array_filter($tmp);
 	array_shift($tmp);
 	$queryString = implode('/', $tmp);
-
+	
+	$controller = "";
+	
 	switch(true)
 	{
 		case empty($queryString):
-
 		$controller = 'index';
 		$action = 'index';
 		$params = array();
-
 		break;
 
 		case preg_match('/^photos\/(\d+)$/', $queryString, $matches) :
@@ -61,6 +61,12 @@
 		$action = 'login';
 		$params = [];
 		break;
+		
+		case preg_match('/^logout\/?$/', $queryString) :
+		$controller = 'users';
+		$action = 'logout';
+		$params = [];
+		break;
 
 		case preg_match('/^albums\/add\/?$/', $queryString) :
 		$controller = 'albums';
@@ -83,7 +89,6 @@
 			if (is_callable($functionName))
 			{
 				call_user_func_array($functionName, $params);
-
 			}
 			else
 			{

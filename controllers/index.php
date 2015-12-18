@@ -6,21 +6,17 @@
 		require(MODELS.'photo.php');
 		require(MODELS.'users.php');
 
+		$photo = photos_getAll();	
+		
 		if (isset($_SESSION['user']))
 		{
 			$user = users_getById($_SESSION['user']);
+			require(VIEWS."view.php");
 		}
 		else
 		{
-			$user = [
-				'name'=>'Гость'
-			];
+			require(VIEWS."view_guest.php");
 		}
-
-		$photo = photos_getAll();
-		
-		require(VIEWS."view.php");
-
 	}
 
 ?>

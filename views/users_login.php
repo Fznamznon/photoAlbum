@@ -1,5 +1,5 @@
 <html>
-
+<?php if ($errorString !== NULL) echo $errorString?>
 <form method="POST" action="<?php echo WEB.'login'; ?>">
 
 Логин: <input type = "text" name = "login"> 
