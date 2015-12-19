@@ -28,7 +28,7 @@
 			echo "<nav class='navbar navbar-default navbar-fixed-top'>
 					<div class = 'container-fluid'>
 						<ul class='nav navbar-nav'>
-							<li><a class='navbar-brand' href='".WEB."'>Публичная галерея</a></li>";
+							<li><a class='navbar-brand' href='".WEB."public'>Публичная галерея</a></li>";
 							if ($user['id'] == -1) {
 								echo "<li><a href=".WEB."login>Войти</a></li>";
 								echo "<li><a href=".WEB."register>Зарегистрироваться</a></li>";

@@ -24,8 +24,8 @@
 
 			<div class="form-group">
 				<div class="col-sm-10 col-sm-offset-2">
-					<input type = "submit">
-					<a href='<?php echo WEB;?>' class='btn btn-default'>
+					<input type = "submit" class='btn btn-default'>
+					<a href='<?php echo WEB;?>' class='btn btn-default'>Отмена</a>
 				</div>
 			</div>
 		</form>
